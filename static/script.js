@@ -20,7 +20,7 @@ function startQuiz() {
 function submitQuiz() {
     const jsonString = JSON.stringify(answers);  // Convert the answers object to JSON string
     console.log(jsonString);  // You can display or send the JSON as needed
-    if (Object.keys(answers).length === 3) {  // Adjust this based on the number of questions
+    if (Object.keys(answers).length === 7) {  // Adjust this based on the number of questions
 
         console.log("All answers are guessed:", answers);
         fetch(apiUrl, {
