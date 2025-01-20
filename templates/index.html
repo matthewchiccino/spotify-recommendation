@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Recs</title>
+
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link rel="stylesheet" href="/../static/css/styles.css">
+
+    <!-- Favicon -->
+    <link href="/images/favicon.ico" rel="icon" type="image/x-icon">
+    <meta property="og:image" content="/images/favicon.ico" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header and Navigation Menu -->
+        <div class="menu">
+            <div class="helpButtons">
+                <a href="/help.html" class="fa fa-question-circle" id="helpButton" aria-label="Help"></a>
+                <a href="/info.html" class="fa fa-info-circle" aria-label="Info"></a>
+                <a href="https://github.com/matthewchiccino/spotify-recommendation" class="fa fa-github" target="_blank" aria-label="GitHub Repository"></a>
+            </div>
+        </div>
+        <!-- Quiz Section -->
+        <div class="main-content">
+            <!-- Start Quiz Button -->
+            <div class="start-quiz" id="quizStart">
+                <h2>Find the perfect artist for you</h2>
+                <button id="startQuizButton">Start Quiz</button>
+            </div>
+        
+            <!-- Quiz Questions (Initially Hidden) -->
+            <div class="quiz-content" style="display: none;">
+                <div class="question" data-question-id="1">
+                    <p>1. What genre do you prefer?</p>
+                    <button class="quiz-button" data-answer="rock">Rock</button>
+                    <button class="quiz-button" data-answer="pop">Pop</button>
+                    <button class="quiz-button" data-answer="hiphop">Hip-hop</button>
+                    <button class="quiz-button" data-answer="classical">Classical</button>
+                </div>
+        
+                <div class="question" data-question-id="2">
+                    <p>2. Which mood best describes your current vibe?</p>
+                    <button class="quiz-button" data-answer="happy">Happy</button>
+                    <button class="quiz-button" data-answer="sad">Sad</button>
+                    <button class="quiz-button" data-answer="energetic">Energetic</button>
+                    <button class="quiz-button" data-answer="chill">Chill</button>
+                </div>
+        
+                <div class="question" data-question-id="3">
+                    <p>3. How often do you listen to music?</p>
+                    <button class="quiz-button" data-answer="daily">Daily</button>
+                    <button class="quiz-button" data-answer="weekly">Weekly</button>
+                    <button class="quiz-button" data-answer="occasionally">Occasionally</button>
+                    <button class="quiz-button" data-answer="rarely">Rarely</button>
+                </div>
+        
+                <!-- Submit Quiz Button -->
+                <div class="submit-container">
+                    <button id="submitQuizButton">Submit Quiz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Section (Initially Hidden) -->
+        <div class="result hidden">
+            <h2>Your Perfect Artist</h2>
+            <p id="artist-name">Artist Name</p>
+            <img id="artist-image" src="" alt="Artist Image" class="result-image">
+            <a href="https://spotify.com" id="spotify-link" target="_blank">Listen on Spotify</a>
+        </div>
+    </div>
+
+    <!-- External Scripts -->
+    <script src="../static/script.js" defer></script>
+</body>
+
+</html>
