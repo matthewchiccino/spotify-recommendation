@@ -191,7 +191,7 @@ varied_artist_mappings = {
     # Energetic, Old
     ('energetic', 'old', 'no instruments', 'popular is fine', 'solo'): ['Elvis Presley'],  # Rock'n'Roll
     ('energetic', 'old', 'no instruments', 'popular is fine', 'group'): ['The Supremes'],  # Motown
-    ('energetic', 'old', 'no instruments', 'popular is bad', 'solo'): ['Pérez Prado'],  # Latin Mambo
+    ('energetic', 'old', 'no instruments', 'popular is bad', 'solo'): ['Pérez Prado'],  # Latin 
     ('energetic', 'old', 'no instruments', 'popular is bad', 'group'): ['Fania All-Stars'],  # Salsa
     ('energetic', 'old', 'instruments', 'popular is fine', 'solo'): ['Beethoven'],  # Classical
     ('energetic', 'old', 'instruments', 'popular is fine', 'group'): ['The Berlin Philharmonic'],  # Classical Orchestra

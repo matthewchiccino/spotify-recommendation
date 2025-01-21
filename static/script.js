@@ -1,4 +1,4 @@
-const apiUrl = "http://127.0.0.1:8080/submit"
+const apiUrl = "https://spotify-recommendation-plsf.onrender.com/submit"
 
 // Get references to the elements
 const startButton = document.getElementById('startQuizButton');
@@ -61,6 +61,19 @@ document.addEventListener('keydown', function(event) {
 // Event listener for each quiz button click to save the answer
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
+
+
+        // Get the question element
+        const questionElement = button.closest('.question');
+        
+        // Remove the 'selected' class from all buttons within the same question
+        const allButtonsInQuestion = questionElement.querySelectorAll('.quiz-button');
+        allButtonsInQuestion.forEach(btn => btn.classList.remove('selected'));
+
+        // Add the 'selected' class to the clicked button
+        button.classList.add('selected');
+
+
         // Get the question number dynamically from the closest .question element
         const questionNumber = button.closest('.question').getAttribute('data-question-id');  // Assuming each .question has a unique data-question-id
 
@@ -115,9 +128,14 @@ const displayArtistInfo = (artistData) => {
     resultsDiv.style.display = 'block'; // Make the results section visible
 };
 
-document.getElementById('spotify-link').addEventListener('click', function() {
-    window.open('https://spotify.com', '_blank');
+document.getElementById('spotify-link').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the link if needed
+    const spotifyLink = document.getElementById('spotify-link');
+    const linkHref = spotifyLink.href; // Access the href property
+    console.log('Spotify link:', linkHref); // Log the link to the console
+    window.open(linkHref, '_blank'); // Open the link in a new tab
 });
+
 document.getElementById('homeButton').addEventListener('click', function() {
     resultsDiv.style.display = 'none';
     quizStartDiv.style.display = 'block';

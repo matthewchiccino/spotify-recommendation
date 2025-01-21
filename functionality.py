@@ -19,8 +19,3 @@ def get_artist(answers):
     print("IM SEARCHING FOR", artist_id)
 
     return artist_id
-
-
-def get_else_artist(answers):
-    # Handle other genres or defaults
-    return ['2CIMQHirSU0MQqyYHq0eOx']  # Default artist ID (e.g., Dua Lipa)

@@ -1,10 +1,9 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session
 from flask_session import Session
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 from requests import post, get
-import json
 import base64
 
 from functionality import get_artist
@@ -38,16 +37,16 @@ def help():
 
 @app.route('/submit', methods=['POST'])
 def guess_word():
-    data = request.get_json()
-    print(data)
-    artist_name = get_artist(data)  # Ensure key is passed in the request
+    session['data'] = request.get_json()
+    print(session['data'])
+    session['artist_name'] = get_artist(session['data'])  # Ensure key is passed in the request
     token = get_token()  # Get Spotify token
 
     if token:
         print("OK IM SEARCHING")
-        artist = search_artist(token, artist_name)  # Search for the artist using the token
-        print("RETURNING\n", artist)
-        return jsonify({"message": artist})
+        session['artist'] = search_artist(token, session['artist_name'])  # Search for the artist using the token
+        print("RETURNING\n", session['artist'])
+        return jsonify({"message": session['artist']})
     else:
         print("DIDNT MAKE SPOTIFY CALL NO TOKEN")
         return jsonify({"message": "Error: Unable to retrieve the token"}), 400
@@ -102,6 +101,7 @@ def search_artist(token, artist_name):
         print("bad api call")
         return {"error": f"Error searching artist: {result.status_code}, {result.text}"}
 
-
+"""
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
+"""

@@ -1,15 +1,7 @@
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 /* Body Styling */
 body {
     background-color: #212121;
     color: #f1f1f1;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,6 +9,9 @@ body {
 
 /* Main Container */
 .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     width: 100%;
     max-width: 800px;
     background-color: #333;
@@ -97,6 +92,10 @@ body {
     background-color: #4CAF50;
 }
 
+.selected {
+    background-color: #4CAF50;
+}
+
 /* Submit Quiz Button */
 #submitQuizButton {
     padding: 15px 30px;
@@ -119,7 +118,6 @@ body {
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center items horizontally */
     padding-top: 20px;
-    background-color: #a045a0;
     width: 100%; /* Ensure the container takes up full width */
     max-width: 400px; /* Optional: Limit the width of the result box */
     margin: 0 auto; /* Center it horizontally */
@@ -142,7 +140,6 @@ body {
 }
 
 .spotify-button {
-    display: flex;
     margin-top: 20px;
     padding: 10px 20px;
     background-color: #1db954;
@@ -154,5 +151,21 @@ body {
 }
 
 .spotify-button:hover {
+    background-color: #1ed760;
+}
+
+.home-button {
+    position: relative; /* Ensures the button follows the document flow */
+    padding: 10px 20px;
+    background-color: #1db954;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.home-button:hover {
     background-color: #1ed760;
 }
