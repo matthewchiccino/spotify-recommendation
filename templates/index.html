@@ -39,8 +39,8 @@
             <div class="quiz-content" style="display: none;">
                 <div class="question" data-question-id="1">
                     <p>1. Who won the rap beef?</p>
-                    <button class="quiz-button" data-answer="Drake">Drake</button>
-                    <button class="quiz-button" data-answer="kendrick Lamar">kendrick Lamar</button>
+                    <button class="quiz-button" data-answer="drake">Drake</button>
+                    <button class="quiz-button" data-answer="kendrick">kendrick Lamar</button>
                 </div>
         
                 <div class="question" data-question-id="2">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="question" data-question-id="7">
                     <p>7. Groups or solo artists?</p>
-                    <button class="quiz-button" data-answer="band">Usually Groups</button>
+                    <button class="quiz-button" data-answer="group">Usually Groups</button>
                     <button class="quiz-button" data-answer="solo">Solo Arists</button>
                 </div>
         
@@ -89,11 +89,12 @@
         </div>
 
         <!-- Result Section (Initially Hidden) -->
-        <div class="result hidden">
+        <div class="result", id="results" style="display: none;">
             <h2>Your Perfect Artist</h2>
             <p id="artist-name">Artist Name</p>
             <img id="artist-image" src="" alt="Artist Image" class="result-image">
-            <a href="https://spotify.com" id="spotify-link" target="_blank">Listen on Spotify</a>
+            <button id="spotify-link" class="spotify-button">Go to Spotify</button>
+            <button id="homeButton" class="home-button">Home</button>
         </div>
     </div>
 

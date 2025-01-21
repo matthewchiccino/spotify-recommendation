@@ -6,6 +6,8 @@ const quizStartDiv = document.getElementById('quizStart');
 const quizContentDiv = document.querySelector('.quiz-content');
 const buttons = document.querySelectorAll('.quiz-button');  // Get all quiz buttons
 const submitButton = document.getElementById('submitQuizButton');
+const resultsDiv = document.getElementById('results');
+const resultsContentDiv = document.getElementById('resultsContent');
 
 let answers = {};  // Initialize the answers object to hold question answers
 let answeredCount = 0;  // Counter to track how many questions have been answered
@@ -24,7 +26,7 @@ function submitQuiz() {
 
         console.log("All answers are guessed:", answers);
         fetch(apiUrl, {
-            method: 'POST',  // Change GET to POST
+            method: 'POST',  
             headers: {
                 'Content-Type': 'application/json',
             }, 
@@ -32,7 +34,8 @@ function submitQuiz() {
         })
         .then(response => response.json()) // Parse the JSON response
         .then(data => {
-            processApiResponse(data); // Pass the data to the processing function
+            console.log('API Response:', data); // Log the response for debugging
+            displayArtistInfo(data); // Display the results
         })
         .catch(error => {
             console.error('Error:', error); // Handle any errors
@@ -78,4 +81,44 @@ buttons.forEach((button) => {
         // Log the updated answers for debugging
         console.log(answers);
     });
+});
+
+// Function to display artist info
+const displayArtistInfo = (artistData) => {
+    // Get the artist data from the response
+    const artist = artistData.message; // Adjust to match the structure of your API response
+
+    // Check if artist data is valid
+    if (!artist || !artist.name || !artist.external_urls || !artist.images) {
+        console.error('Invalid artist data:', artistData);
+        alert('No valid artist data found');
+        return;
+    }
+
+    // Update the artist name
+    const artistNameElement = document.getElementById("artist-name");
+    artistNameElement.textContent = artist.name;
+
+    // Update the Spotify link
+    const spotifyLink = document.getElementById("spotify-link");
+    spotifyLink.href = artist.external_urls.spotify;
+
+    // Update the artist image
+    const artistImage = document.getElementById("artist-image");
+    const imageUrl = artist.images[0]?.url || ''; // Use the first image, or fallback to an empty string
+    artistImage.src = imageUrl;
+    artistImage.alt = `${artist.name} image`;
+
+    // Show the results section
+    const resultsDiv = document.getElementById("results");
+    quizContentDiv.style.display = 'none'; // Hide the quiz section
+    resultsDiv.style.display = 'block'; // Make the results section visible
+};
+
+document.getElementById('spotify-link').addEventListener('click', function() {
+    window.open('https://spotify.com', '_blank');
+});
+document.getElementById('homeButton').addEventListener('click', function() {
+    resultsDiv.style.display = 'none';
+    quizStartDiv.style.display = 'block';
 });

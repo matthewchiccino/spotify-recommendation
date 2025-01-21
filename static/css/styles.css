@@ -7,16 +7,15 @@
 
 /* Body Styling */
 body {
-    font-family: 'Press Start 2P', sans-serif; /* Retro font */
-    background-color: #212121; /* Dark background */
-    color: #f1f1f1; /* Light text color */
+    background-color: #212121;
+    color: #f1f1f1;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Container for Main Content */
+/* Main Container */
 .container {
     width: 100%;
     max-width: 800px;
@@ -25,16 +24,14 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     text-align: center;
-    position: relative;
 }
-
 
 /* Header and Menu */
 .menu {
     top: 10px;
     right: 20px;
-    display: flex; /* Use flexbox */
-    justify-content: flex-end; /* Align buttons to the left */
+    display: flex;
+    justify-content: flex-end;
 }
 
 .helpButtons a {
@@ -45,9 +42,10 @@ body {
 }
 
 .helpButtons a:hover {
-    color: #4CAF50; /* Green color on hover */
+    color: #4CAF50;
 }
 
+/* Start Quiz Button */
 #startQuizButton {
     background-color: #4CAF50;
     color: white;
@@ -55,30 +53,18 @@ body {
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    padding: 15px 50px;
     transition: background-color 0.3s ease;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 15px;
-
-    padding-bottom: 15px;
-
 }
 
 #startQuizButton:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
-
-.start-quiz {
-    margin-top: 10px;
-    font-size: 22px;
-    padding: 50px;
+    background-color: #45a049;
 }
 
 /* Quiz Content */
 .quiz-content {
     display: none;
     padding-top: 20px;
-    
 }
 
 .question {
@@ -108,13 +94,10 @@ body {
 }
 
 .quiz-button.selected {
-    background-color: #4CAF50; /* Green when selected */
+    background-color: #4CAF50;
 }
 
-.submit-container {
-    margin-top: 20px;
-}
-
+/* Submit Quiz Button */
 #submitQuizButton {
     padding: 15px 30px;
     background-color: #4CAF50;
@@ -127,13 +110,19 @@ body {
 }
 
 #submitQuizButton:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049;
 }
 
 /* Result Section */
 .result {
-    display: none;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
     padding-top: 20px;
+    background-color: #a045a0;
+    width: 100%; /* Ensure the container takes up full width */
+    max-width: 400px; /* Optional: Limit the width of the result box */
+    margin: 0 auto; /* Center it horizontally */
 }
 
 .result h2 {
@@ -152,8 +141,8 @@ body {
     border-radius: 10px;
 }
 
-#spotify-link {
-    display: inline-block;
+.spotify-button {
+    display: flex;
     margin-top: 20px;
     padding: 10px 20px;
     background-color: #1db954;
@@ -161,9 +150,9 @@ body {
     font-size: 16px;
     border: none;
     border-radius: 5px;
-    text-decoration: none;
+    cursor: pointer;
 }
 
-#spotify-link:hover {
+.spotify-button:hover {
     background-color: #1ed760;
 }
