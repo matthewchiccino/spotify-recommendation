@@ -18,7 +18,7 @@ CORS(app)
 
 # Configure Flask-Session
 app.config["SESSION_PERMANENT"] = False
-app.config['SESSION_TYPE'] = 'filesystem'  # Store session data in files (use Redis for production)
+app.config['SESSION_TYPE'] = 'filesystem'  # Store session data in files
 app.config['SECRET_KEY'] = 'your_secret_key'
 Session(app)
 
@@ -38,17 +38,17 @@ def help():
 @app.route('/submit', methods=['POST'])
 def guess_word():
     session['data'] = request.get_json()
-    print(session['data'])
+    print("answers", session['data'])
     session['artist_name'] = get_artist(session['data'])  # Ensure key is passed in the request
     token = get_token()  # Get Spotify token
 
     if token:
-        print("OK IM SEARCHING")
+        print("searching for artist")
         session['artist'] = search_artist(token, session['artist_name'])  # Search for the artist using the token
-        print("RETURNING\n", session['artist'])
+        print("returning\n", session['artist'])
         return jsonify({"message": session['artist']})
     else:
-        print("DIDNT MAKE SPOTIFY CALL NO TOKEN")
+        print("Unable to retrieve the token")
         return jsonify({"message": "Error: Unable to retrieve the token"}), 400
 
 
@@ -86,7 +86,6 @@ def search_artist(token, artist_name):
 
     query_url = url + query
     result = get(query_url, headers=headers)
-    print("FUCKFUCKFUCKFUCK")
 
     if result.status_code == 200:
         json_result = result.json()
@@ -95,12 +94,11 @@ def search_artist(token, artist_name):
         if artist:
             return artist
         else:
-            print("artist found 1")
             return {"error": "Artist not found"}
     else:
-        print("bad api call")
         return {"error": f"Error searching artist: {result.status_code}, {result.text}"}
 
+# local host for development
 """
 if __name__ == '__main__':
     app.run(debug=True, port=8080)

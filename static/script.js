@@ -12,17 +12,20 @@ const resultsContentDiv = document.getElementById('resultsContent');
 let answers = {};  // Initialize the answers object to hold question answers
 let answeredCount = 0;  // Counter to track how many questions have been answered
 
+startButton.addEventListener('click', startQuiz);
+submitButton.addEventListener('click', submitQuiz);
+
 // Function to start the quiz
 function startQuiz() {
-    quizStartDiv.style.display = 'none';  // Hide the start quiz section
-    quizContentDiv.style.display = 'block';  // Show the quiz questions
+    quizStartDiv.style.display = 'none';  // Hide start section
+    quizContentDiv.style.display = 'block';  // Show quiz questions
 }
 
 // Function to submit the quiz and output the JSON result
 function submitQuiz() {
-    const jsonString = JSON.stringify(answers);  // Convert the answers object to JSON string
-    console.log(jsonString);  // You can display or send the JSON as needed
-    if (Object.keys(answers).length === 7) {  // Adjust this based on the number of questions
+    const jsonString = JSON.stringify(answers);  
+    console.log(jsonString);
+    if (Object.keys(answers).length === 7) {  // 7 questions
 
         console.log("All answers are guessed:", answers);
         fetch(apiUrl, {
@@ -30,15 +33,16 @@ function submitQuiz() {
             headers: {
                 'Content-Type': 'application/json',
             }, 
-            body: JSON.stringify(answers),  // Send the answers in the request body
+            body: JSON.stringify(answers), 
         })
         .then(response => response.json()) // Parse the JSON response
         .then(data => {
-            console.log('API Response:', data); // Log the response for debugging
+            console.log('API Response:', data); // Log response
             displayArtistInfo(data); // Display the results
         })
+        // Handle any errors
         .catch(error => {
-            console.error('Error:', error); // Handle any errors
+            console.error('Error:', error); 
             alert('There was an error with the API call');
         });
     } else {
@@ -46,10 +50,6 @@ function submitQuiz() {
         alert('Make sure to answer every question');
     }
 }
-
-// Add click event to the start button
-startButton.addEventListener('click', startQuiz);
-submitButton.addEventListener('click', submitQuiz);
 
 // Add keyboard event to start the quiz when Enter is pressed (but only once)
 document.addEventListener('keydown', function(event) {
@@ -62,7 +62,6 @@ document.addEventListener('keydown', function(event) {
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
 
-
         // Get the question element
         const questionElement = button.closest('.question');
         
@@ -72,7 +71,6 @@ buttons.forEach((button) => {
 
         // Add the 'selected' class to the clicked button
         button.classList.add('selected');
-
 
         // Get the question number dynamically from the closest .question element
         const questionNumber = button.closest('.question').getAttribute('data-question-id');  // Assuming each .question has a unique data-question-id
@@ -124,8 +122,8 @@ const displayArtistInfo = (artistData) => {
 
     // Show the results section
     const resultsDiv = document.getElementById("results");
-    quizContentDiv.style.display = 'none'; // Hide the quiz section
-    resultsDiv.style.display = 'block'; // Make the results section visible
+    quizContentDiv.style.display = 'none'; // Hide quiz section
+    resultsDiv.style.display = 'block'; // Show results section
 };
 
 document.getElementById('spotify-link').addEventListener('click', function(event) {
