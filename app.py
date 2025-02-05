@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify, render_template, session
 from flask_session import Session
 from flask_cors import CORS
-import os
 from dotenv import load_dotenv
 from requests import post, get
 import base64
+import os
 
 from functionality import get_artist
 
@@ -98,8 +98,7 @@ def search_artist(token, artist_name):
     else:
         return {"error": f"Error searching artist: {result.status_code}, {result.text}"}
 
+
 # local host for development
-"""
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
-"""
