@@ -1,4 +1,4 @@
-const apiUrl = "https://spotify-recommendation-7gyc.onrender.com/submit"
+const apiUrl = "https://spotify-recommendation-plsf.onrender.com/submit"
 
 // Get references to the elements
 const startButton = document.getElementById('startQuizButton');
