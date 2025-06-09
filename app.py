@@ -5,8 +5,7 @@ from dotenv import load_dotenv
 from requests import post, get
 import base64
 import os
-
-from functionality import get_artist
+import yaml
 
 load_dotenv()
 
@@ -21,6 +20,65 @@ app.config["SESSION_PERMANENT"] = False
 app.config['SESSION_TYPE'] = 'filesystem'  # Store session data in files
 app.config['SECRET_KEY'] = 'your_secret_key'
 Session(app)
+
+with open('artist_data.yaml', 'r') as file:
+    artist_data = yaml.safe_load(file)
+
+def convert_to_tuple_key_mapping(artist_list):
+    mapping = {}
+    for item in artist_list:
+        key_tuple = tuple(item['key'])
+        mapping[key_tuple] = item['value']
+    return mapping
+
+rap_artist_mappings = convert_to_tuple_key_mapping(artist_data['rap_artist_mappings'])
+rock_artist_mappings = convert_to_tuple_key_mapping(artist_data['rock_artist_mappings'])
+pop_artist_mappings = convert_to_tuple_key_mapping(artist_data['pop_artist_mappings'])
+varied_artist_mappings = convert_to_tuple_key_mapping(artist_data['varied_artist_mappings'])
+
+
+def get_artist(answers):
+    if answers['6'] == "rap":
+        artist_id = rap_artist_mappings[tuple(answers.values())]
+    elif answers['6'] == "pop":
+        del answers["1"]
+        del answers["6"]
+        artist_id = pop_artist_mappings[tuple(answers.values())]
+    elif answers['6'] == "rock":
+        del answers["1"]
+        del answers["6"]
+        artist_id = rock_artist_mappings[tuple(answers.values())]
+    else:
+        del answers["1"]
+        del answers["6"]
+        artist_id = varied_artist_mappings[tuple(answers.values())]
+
+    print("IM SEARCHING FOR", artist_id)
+
+    return artist_id
+
+
+def get_auth_header(token):
+    return {"Authorization": "Bearer " + token}
+
+def search_artist(token, artist_name):
+    url = "https://api.spotify.com/v1/search"
+    headers = get_auth_header(token)
+    query = f"?q={artist_name}&type=artist&limit=1"
+
+    query_url = url + query
+    result = get(query_url, headers=headers)
+
+    if result.status_code == 200:
+        json_result = result.json()
+        artist = json_result["artists"]["items"][0] if json_result["artists"]["items"] else None
+        print(artist)
+        if artist:
+            return artist
+        else:
+            return {"error": "Artist not found"}
+    else:
+        return {"error": f"Error searching artist: {result.status_code}, {result.text}"}
 
 @app.route('/')
 def home():
@@ -74,31 +132,9 @@ def get_token():
     else:
         print("Error: Unable to retrieve the token")
         return None
-    
 
-def get_auth_header(token):
-    return {"Authorization": "Bearer " + token}
-
-def search_artist(token, artist_name):
-    url = "https://api.spotify.com/v1/search"
-    headers = get_auth_header(token)
-    query = f"?q={artist_name}&type=artist&limit=1"
-
-    query_url = url + query
-    result = get(query_url, headers=headers)
-
-    if result.status_code == 200:
-        json_result = result.json()
-        artist = json_result["artists"]["items"][0] if json_result["artists"]["items"] else None
-        print(artist)
-        if artist:
-            return artist
-        else:
-            return {"error": "Artist not found"}
-    else:
-        return {"error": f"Error searching artist: {result.status_code}, {result.text}"}
-
-
+"""
 # local host for development
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
+"""
